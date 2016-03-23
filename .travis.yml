@@ -1,0 +1,28 @@
+language: python
+sudo: false
+
+
+# We don't care about Travis' python versions, we install conda anyway
+env:
+  matrix:
+    - CONDA_PYTHON_VERSION=3.5
+
+before_install:
+  # Install conda
+  - wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update conda
+  - conda config --add channels 'http://conda.anaconda.org/babbel'
+
+install:
+  # Install dependencies
+  - conda env create -n testenv_$CONDA_PYTHON_VERSION -f $TRAVIS_BUILD_DIR/conda-dev-environment.yml
+  - source activate testenv_$CONDA_PYTHON_VERSION
+
+script:
+  - py.test -vv -r sxX
+
+notifications:
+  email: true
