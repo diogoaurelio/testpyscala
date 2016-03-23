@@ -1,6 +1,10 @@
 language: python
 sudo: false
 
+python:
+  # We don't actually use the Travis Python, but this keeps it organized.
+  - "3.4"
+  - "3.5"
 
 # We don't care about Travis' python versions, we install conda anyway
 env:
@@ -13,12 +17,13 @@ before_install:
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - conda config --set always_yes yes --set changeps1 no
-  - conda update conda
+  - conda update -q conda
   - conda config --add channels 'http://conda.anaconda.org/babbel'
+  - conda info -a
 
 install:
   # Install dependencies
-  - conda env create -n testenv_$CONDA_PYTHON_VERSION -f $TRAVIS_BUILD_DIR/conda-dev-environment.yml
+  - conda env create -n testenv_$CONDA_PYTHON_VERSION -f $TRAVIS_BUILD_DIR/conda-test-environment.yml
   - source activate testenv_$CONDA_PYTHON_VERSION
 
 script:
