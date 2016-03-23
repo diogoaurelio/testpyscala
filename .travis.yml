@@ -25,9 +25,9 @@ before_install:
 
 install:
   # Install dependencies
-  - conda env create -n testenv_$TRAVIS_PYTHON_VERSION boto3 pytest pytest-mock pytest-pythonpath
+  - conda env create -n testenv_$TRAVIS_PYTHON_VERSION python=$TRAVIS_PYTHON_VERSION
   - source activate testenv_$TRAVIS_PYTHON_VERSION
-
+  - conda install boto3 pytest pytest-mock pytest-pythonpath
 script:
   - py.test -rsxX -q
 
