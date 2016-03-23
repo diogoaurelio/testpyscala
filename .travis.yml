@@ -9,6 +9,10 @@ python:
   #- "3.4"
   - "3.5" # TODO
 
+env:
+  global:
+    - AWS_DEFAULT_REGION=eu-west-1
+
 before_install:
   # Install conda
   - wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
@@ -21,7 +25,7 @@ before_install:
 
 install:
   # Install dependencies
-  - conda env create -n testenv_$TRAVIS_PYTHON_VERSION -f $TRAVIS_BUILD_DIR/conda-test-environment-$TRAVIS_PYTHON_VERSION.yml
+  - conda env create -n testenv_$TRAVIS_PYTHON_VERSION -f boto3 pytest pytest-mock pytest-pythonpath
   - source activate testenv_$TRAVIS_PYTHON_VERSION
 
 script:
