@@ -25,7 +25,7 @@ install:
   - source activate testenv_$TRAVIS_PYTHON_VERSION
 
 script:
-  - py.test
+  - py.test -rsxX -q
 
 notifications:
   email: true
