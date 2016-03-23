@@ -5,7 +5,7 @@ sudo: false
 # We don't care about Travis' python versions, we install conda anyway
 env:
   matrix:
-    - CONDA_PYTHON_VERSION=$PYTHON
+    - CONDA_PYTHON_VERSION="3.5"
 
 before_install:
   # Install conda
