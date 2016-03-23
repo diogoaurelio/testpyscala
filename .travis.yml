@@ -1,11 +1,11 @@
 language: python
 sudo: false
 
-python:
-  # We don't actually use the Travis Python, but this keeps it organized.
-  - "3.4"
-  - "3.5"
 
+# We don't care about Travis' python versions, we install conda anyway
+env:
+  matrix:
+    - CONDA_PYTHON_VERSION=$PYTHON
 
 before_install:
   # Install conda
@@ -19,8 +19,8 @@ before_install:
 
 install:
   # Install dependencies
-  - conda env create -n testenv_$python -f $TRAVIS_BUILD_DIR/conda-test-environment.yml
-  - source activate testenv_$python
+  - conda env create -n testenv_$CONDA_PYTHON_VERSION -f $TRAVIS_BUILD_DIR/conda-test-environment.yml
+  - source activate testenv_$CONDA_PYTHON_VERSION
 
 script:
   - py.test -vv -r sxX
