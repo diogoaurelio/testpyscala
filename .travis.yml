@@ -23,6 +23,8 @@ install:
   - source activate testenv_$CONDA_PYTHON_VERSION
 
 script:
+  - pwd
+  - ls
   - py.test -vv -r sxX
 
 notifications:
